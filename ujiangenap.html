@@ -1,0 +1,108 @@
+<html>
+<head>
+  <title>Diskon</title>
+</head>
+<body>
+<script>
+let jumlahTransaksi = 3;
+let dataTransaksi = [];
+
+let totalDiskonSemua = 0;
+let totalPendapatanSemua = 0;
+
+// proses
+for (let i = 1; i <= jumlahTransaksi; i++) {
+
+  console.log("=== Transaksi ke-" + i + " ===");
+
+  let jenisBaju = prompt("Jenis baju (kaos/kemeja/jaket/hoodie):").toLowerCase();
+  let hargaSatuan = 0;
+
+  if (jenisBaju === "kaos") {
+    hargaSatuan = 30000;
+  } else if (jenisBaju === "kemeja") {
+    hargaSatuan = 50000;
+  } else if (jenisBaju === "jaket") {
+    hargaSatuan = 75000;
+  } else if (jenisBaju === "hoodie") {
+    hargaSatuan = 100000;
+  } else {
+    console.log("Jenis baju tidak valid");
+    continue;
+  }
+
+  let jumlahBeli = parseInt(prompt("Jumlah baju dibeli:"));
+  let sesi = prompt("Sesi pembelian (Pagi / Siang / Malam):");
+
+  let totalHarga = hargaSatuan * jumlahBeli;
+  let diskon = 0;
+
+  // diskon
+  if (sesi === "Pagi" || sesi === "pagi") {
+
+    if (jumlahBeli <= 10) {
+      diskon = 0;
+    } else if (jumlahBeli <= 20) {
+      diskon = (10 * hargaSatuan * 0.05) +
+               ((jumlahBeli - 10) * hargaSatuan * 0.10);
+    } else {
+      diskon = (10 * hargaSatuan * 0.05) +
+               (10 * hargaSatuan * 0.12) +
+               ((jumlahBeli - 20) * hargaSatuan * 0.22);
+    }
+
+  } else if (sesi === "Malam" || sesi === "malam") {
+
+    if (jumlahBeli <= 10) {
+      diskon = jumlahBeli * hargaSatuan * 0.05;
+    } else if (jumlahBeli <= 20) {
+      diskon = (10 * hargaSatuan * 0.10) +
+               ((jumlahBeli - 10) * hargaSatuan * 0.18);
+    } else {
+      diskon = (10 * hargaSatuan * 0.10) +
+               (10 * hargaSatuan * 0.18) +
+               ((jumlahBeli - 20) * hargaSatuan * 0.25);
+    }
+
+  } else {
+    diskon = 0; // siang / non member
+  }
+
+  let totalBayar = totalHarga - diskon;
+
+  // simpan
+
+  dataTransaksi.push({
+    jenis: jenisBaju,
+    harga: hargaSatuan,
+    jumlah: jumlahBeli,
+    sesi: sesi,
+    totalHarga: totalHarga,
+    diskon: diskon,
+    totalBayar: totalBayar
+  });
+
+  // output
+
+  console.log("Jenis baju: " + jenisBaju);
+  console.log("Harga satuan: " + hargaSatuan);
+  console.log("Jumlah baju dibeli: " + jumlahBeli);
+  console.log("Sesi: " + sesi);
+  console.log("Total Harga: Rp " + totalHarga);
+  console.log("Diskon: Rp " + diskon);
+  console.log("Total Bayar: Rp " + totalBayar);
+  console.log("");
+
+  totalDiskonSemua += diskon;
+  totalPendapatanSemua += totalBayar;
+}
+
+console.log("=== rekap akhir penjualan ===");
+console.log("Total Transaksi : " + dataTransaksi.length);
+console.log("Total Diskon    : Rp " + totalDiskonSemua);
+console.log("Total Pendapatan: Rp " + totalPendapatanSemua);
+console.log("Rata-rata Pendapatan: Rp " + (totalPendapatanSemua / dataTransaksi.length));
+
+</script>
+</body>
+</html>
